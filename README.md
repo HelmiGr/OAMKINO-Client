@@ -1,4 +1,4 @@
-# Advanced Web Applications Project Group 2 
+# OAMKINO 
 
 ## Table of Contents 
 - [Introduction](#introduction) 
@@ -43,7 +43,7 @@ For local installation follow these instructions:
       - Frontend: “https://github.com/HelmiGr/OAMKINO-Client” 
 
 3. **Install dependencies**
-   - Run “npm install” in the project directories of both files 
+   - Run ```npm install``` in the project directories of both files 
 
 
 ---
