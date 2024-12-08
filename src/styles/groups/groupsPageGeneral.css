@@ -1,0 +1,83 @@
+/* General Styling */
+.groups-page-general {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.groups-page-general h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Navbar Styling */
+.groups-page-general .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.groups-page-general .navbar-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.groups-page-general .btn {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.groups-page-general .btn.create-group {
+  background-color: #007bff;
+  color: white;
+}
+
+.groups-page-general .btn.create-group:hover {
+  background-color: #0056b3;
+}
+
+.groups-page-general .btn.your-groups {
+  background-color: #28a745;
+  color: white;
+}
+
+.groups-page-general .btn.your-groups:hover {
+  background-color: #218838;
+}
+
+/* Table Styling */
+.groups-page-general .groups-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.groups-page-general .groups-table th,
+.groups-page-general .groups-table td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.groups-page-general .groups-table th {
+  background-color: #f4f4f4;
+  color: #555;
+}
+
+.groups-page-general .groups-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.groups-page-general .groups-table tr:hover {
+  background-color: #f1f1f1;
+}

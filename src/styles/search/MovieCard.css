@@ -1,0 +1,59 @@
+/* General Card Styling */
+.movie-card {
+    width: 20%;                 /* Update to 20% to fit five cards per row */
+    max-width: 220px;           /* Optionally, set a maximum width */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+    /* Hover Effect */
+    .movie-card:hover {
+      transform: translateY(-5px); /* Lift the card on hover */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Intensify shadow on hover */
+    }
+    
+    /* Thumbnail Image Styling */
+    .movie-card .thumbnail {
+      width: 100%;                /* Full-width image for responsiveness */
+      height: auto;               /* Auto height to maintain aspect ratio */
+      border-radius: 6px;         /* Round corners slightly */
+      margin-bottom: 10px;        /* Space between image and text */
+      transition: opacity 0.3s ease; /* Smooth fade-in on load */
+    }
+    
+    /* Fade-in effect for images */
+    .movie-card .thumbnail {
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* Text Styling */
+    .movie-card p {
+      font-size: 16px;            /* Larger text for readability */
+      color: #333;                /* Dark color for contrast */
+      margin: 0;                  /* Remove default margin */
+    }
+    
+    .movie-card p strong {
+      display: block;             /* Separate title from year */
+      font-size: 18px;            /* Emphasize the title */
+      margin-bottom: 5px;         /* Space between title and year */
+      color: #222;                /* Slightly darker for title */
+    }
+    
+    .movie-card p span {
+      font-size: 14px;            /* Smaller, muted font for production year */
+      color: #666;                /* Light gray color */
+    }
+    
