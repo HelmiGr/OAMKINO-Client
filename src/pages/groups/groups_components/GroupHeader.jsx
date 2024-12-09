@@ -5,8 +5,8 @@ const GroupHeader = ({ group, isAdmin, onDeleteGroup }) => {
 
   return (
     <header>
-      <h1>{group.group_name}</h1>
-      {isAdmin && <p className="admin-label">Admin</p>}
+      <h2>Group {group.group_name}</h2>
+      {isAdmin && <h2 className="admin-label">Administration</h2>}
       {isAdmin && (
         <button className="btn danger" onClick={onDeleteGroup}>
           Delete Group

@@ -57,7 +57,7 @@ const GroupActions = ({
 
   return (
     <>
-      <h2>Group Actions</h2>
+      <h2 className="group-actions-title">Group Actions</h2>
       {!isAdmin && (
         <div className="group-actions-line">
           <button className="btn primary" onClick={handleJoinGroup}>
@@ -72,7 +72,7 @@ const GroupActions = ({
               Join Group
             </button>
           )}
-          {isMember && !isInvited &&  (
+          {!isMember && !isInvited &&  (
             <button className="btn secondary" onClick={handleLeaveGroup}>
               Leave Group
             </button>

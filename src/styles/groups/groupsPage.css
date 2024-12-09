@@ -1,4 +1,4 @@
-/* styles.css */
+/* General Page Styling */
 .group-page body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -15,6 +15,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Header Styling */
 .group-page header {
   display: flex;
   justify-content: space-between;
@@ -24,23 +25,26 @@
   margin-bottom: 20px;
 }
 
-.group-page header h1 {
-  font-size: 24px;
-  color: #333;
+.group-page header h2 {
+  font-size: 22px;
+  color: hsl(0, 0%, 100%);
+  margin: 0;
 }
 
+.group-actions-title {
+  font-size: 18px;
+  color: hsl(0, 0%, 100%);
+  margin: 20px 0;
+}
+
+/* Section Styling */
 .group-page .group-info,
 .group-page .member-management,
 .group-page .join-requests {
   margin-bottom: 20px;
 }
 
-.group-page h2 {
-  font-size: 20px;
-  color: #555;
-  margin-bottom: 10px;
-}
-
+/* Lists Styling */
 .group-page .member-list,
 .group-page .request-list {
   list-style: none;
@@ -62,11 +66,11 @@
 
 .group-page .member-list li span,
 .group-page .request-list li span {
-  font-size: 16px;
+  font-size: 14px;
   color: #333;
 }
 
-/* Buttons */
+/* Button Styling */
 .group-page .btn {
   padding: 8px 12px;
   border: none;
@@ -77,66 +81,58 @@
 
 .group-page .btn.primary {
   background-color: #007bff;
-  color: white;
+  color: hsl(0, 0%, 100%);
+  font-weight: bold;
 }
 
 .group-page .btn.secondary {
   background-color: #6c757d;
-  color: white;
+  color: hsl(0, 0%, 100%);
+  font-weight: bold;
 }
 
 .group-page .btn.edit {
   background-color: #17a2b8;
-  color: white;
+  color: hsl(0, 0%, 100%);
 }
 
 .group-page .btn.accept {
   background-color: #28a745;
-  color: white;
+  color: hsl(0, 0%, 100%);
 }
 
 .group-page .btn.reject {
   background-color: #dc3545;
-  color: white;
+  color: hsl(0, 0%, 100%);
 }
 
 .group-page .btn.danger {
   background-color: #ff4136;
-  color: white;
+  color: hsl(0, 0%, 100%);
+  font-weight: bold;
 }
 
 .group-page .btn.chat {
   background-color: #ffa500;
-  color: white;
+  color: hsl(0, 0%, 100%);
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .group-page .btn.share-movie {
   background-color: #8a2be2;
-  color: white;
+  color: hsl(0, 0%, 100%);
   margin-top: 10px;
+  font-weight: bold;
 }
 
-/* Responsiveness */
-@media (max-width: 600px) {
-  .group-page .member-list li,
-  .group-page .request-list li {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .group-page .member-list li button,
-  .group-page .request-list li button {
-    margin-top: 5px;
-    width: 100%;
-  }
-}
-
-/* General modal styles */
+/* Modal Styling */
 .modal-overlay {
   display: grid;
   place-items: center;
   position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .invite-modal,
@@ -145,16 +141,17 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  padding: 20px;
 }
 
-.invite-modal h3,
-.join-requests h3 {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
+.invite-modal h2,
+.join-requests h2 {
+  font-size: 18px;
   color: #333;
+  margin: 0 0 20px;
 }
 
-/* List styling */
+/* Modal Lists Styling */
 .invite-modal ul,
 .join-requests ul {
   list-style-type: none;
@@ -171,22 +168,26 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  background-color: #f9f9f9;
 }
 
 .invite-modal li span,
 .join-requests li span {
-  font-size: 1rem;
+  font-size: 14px;
   color: #555;
+  font-weight: bold;
 }
 
 .invite-modal li button,
 .join-requests li button {
+  font-size: 14px;
   background-color: #007bff;
-  color: white;
+  color: hsl(0, 0%, 100%);
   border: none;
   padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .reject {
@@ -202,15 +203,17 @@
   background-color: #c82333 !important;
 }
 
-/* Close button styling */
+/* Close Button Styling */
 .invite-modal .btn.close-modal {
-  margin-top: 20px;
+  font-size: 14px;
+  margin: 20px 0;
   background-color: #dc3545;
-  color: white;
+  color: hsl(0, 0%, 100%);
   border: none;
   padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .invite-modal .btn.close-modal:hover {
@@ -219,6 +222,7 @@
 
 /* Invitation Response Section */
 .group-page .invitation-response {
+  font-size: 14px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   padding: 20px;
@@ -228,38 +232,26 @@
   text-align: center;
 }
 
-/* Invitation Title */
 .group-page .invitation-response .invitation-title {
-  font-size: 20px;
+  font-size: 18px;
   color: #333;
   margin-bottom: 15px;
 }
 
-/* Buttons Section */
 .group-page .invitation-response .invitation-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
 }
 
-/* Accept and Reject Buttons */
-.group-page .invitation-response .btn.accept {
-  background-color: #28a745;
-  color: white;
-  font-size: 16px;
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-
+.group-page .invitation-response .btn.accept,
 .group-page .invitation-response .btn.reject {
-  background-color: #dc3545;
-  color: white;
-  font-size: 16px;
+  font-size: 14px;
   padding: 10px 20px;
   border-radius: 5px;
+  font-weight: bold;
 }
 
-/* Hover Effects */
 .group-page .invitation-response .btn.accept:hover {
   background-color: #218838;
 }
@@ -267,14 +259,79 @@
 .group-page .invitation-response .btn.reject:hover {
   background-color: #c82333;
 }
+
+/* Responsive Styling */
 @media (max-width: 600px) {
-  .group-page .invitation-response .invitation-buttons {
+  .group-page header h2 {
+    font-size: 14px;
+  }
+
+  .invitation-response .invitation-title {
+    font-size: 16px;
+  }
+
+  .invitation-response .invitation-buttons {
     flex-direction: column;
   }
 
-  .group-page .invitation-response .btn.accept,
-  .group-page .invitation-response .btn.reject {
+  .invitation-response .btn.accept,
+  .invitation-response .btn.reject {
     width: 100%;
     margin-bottom: 10px;
   }
+
+  .member-list li,
+  .request-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .member-list li button,
+  .request-list li button {
+    margin-top: 5px;
+    width: 100%;
+  }
+}
+
+/* Member Management Section */
+.member-management {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.member-management h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.member-list {
+  list-style: none;
+  padding: 0;
+}
+
+.member-list li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.member-list li:last-child {
+  border-bottom: none;
+}
+
+.member-list span {
+  font-size: 14px;
+  color: #555;
 }

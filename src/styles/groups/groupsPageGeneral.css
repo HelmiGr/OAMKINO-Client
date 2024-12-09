@@ -58,7 +58,7 @@
 }
 
 /* Table Styling */
-.groups-page-general .groups-table {
+/* .groups-page-general .groups-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
@@ -78,23 +78,58 @@
 
 .groups-page-general .groups-table tr:hover {
   background-color: #24262b;
+} */
+.groups-page-general .groups-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.groups-page-general .groups-table th,
+.groups-page-general .groups-table td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid white;
+}
+
+.groups-page-general .groups-table th {
+  background-color: #2c3e50;
+  color: white;
+  font-weight: bold;
+}
+
+.groups-page-general .groups-table td {
+  color: #333;
+  font-weight: bold;
+}
+
+.groups-page-general .groups-table tr:nth-child(even) {
+  background-color: #ebe7e7;
+}
+
+.groups-page-general .groups-table tr:hover {
+  background-color: #f1f1f1;
 }
 
 @media (max-width: 530px) {
   .groups-page-general .navbar {
-    flex-direction: column; 
+    flex-direction: column;
     align-items: flex-start;
   }
 
   .groups-page-general .navbar-buttons {
-    margin-top: 10px; 
-    flex-direction: column; 
-    gap: 10px; 
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
 @media (max-width: 460px) {
   .groups-page-general .navbar-buttons .btn {
-    width: 100%; 
+    width: 100%;
   }
 }

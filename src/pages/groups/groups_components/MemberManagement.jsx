@@ -10,11 +10,6 @@ const MembersSection = ({ members, isAdmin, handleDeleteMember }) => {
           <p>No members in the group.</p>
         ) : (
           members.map((member) => {
-            // console.log({
-            //   userName: member.user_name,
-            //   role: member.role,
-            //   isAdmin,
-            // });
             return (
               <li key={member.user_id}>
                 <span>{member.user_name}</span>
