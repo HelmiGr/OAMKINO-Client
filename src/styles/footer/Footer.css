@@ -1,10 +1,5 @@
-/* importing some font style from google here? */
-
-/* footer needs to still be changed into a sticky footer, will do this in a later push */
-
 body {
     line-height: 1.5;
-    /*font-family: 'Poppins', sans-serif;*/
 }
 
 *{
