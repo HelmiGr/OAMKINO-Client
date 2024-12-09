@@ -1,356 +1,213 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../styles/groups/groupsPage.css";
 import apiClient from "../../api/api";
+import { toast } from "react-hot-toast";
+import GroupHeader from "./groups_components/GroupHeader";
+import GroupActions from "./groups_components/GroupActions";
+import MemberManagement from "./groups_components/MemberManagement";
+import JoinRequests from "./groups_components/JoinRequests";
+import InviteModal from "./groups_components/InviteModal";
 
 const GroupPage = () => {
   const { groupId } = useParams();
+  const navigate = useNavigate();
+  const token = localStorage.getItem("authToken");
+
   const [group, setGroup] = useState(null);
   const [isMember, setIsMember] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false); // Track if the logged-in user is an admin
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isInvited, setIsInvited] = useState(false);
+  const [invitedUserName, setInvitedUserName] = useState("");
   const [joinRequests, setJoinRequests] = useState([]);
-  const [members, setMembers] = useState([]); // List of group members
+  const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("authToken");
-  const navigate = useNavigate();
+  const [showInviteModal, setShowInviteModal] = useState(false);
 
+  // Fetch group details on component mount
   useEffect(() => {
     const fetchGroupDetails = async () => {
       try {
+        // Fetch group metadata
         const response = await apiClient.get(`/groups/all/${groupId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         setGroup(response.data);
 
-        // Check if the user is already a member of the group
+        // Fetch membership details
         const membershipResponse = await apiClient.get(
-          `/groups/${groupId}/membership`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          `/groups/${groupId}/role`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
 
         setIsMember(membershipResponse.data.isMember);
-        setIsAdmin(membershipResponse.data.role === "admin"); // Set isAdmin based on role
+        setIsInvited(membershipResponse.data.isInvited);
+        setIsAdmin(membershipResponse.data.role === "admin");
+
+        // Fetch join requests if admin
+        if (membershipResponse.data.role === "admin") {
+          const requestsResponse = await apiClient.get(
+            `/groups/${groupId}/member-requests`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          setJoinRequests(requestsResponse.data || []);
+        }
+
+        if (membershipResponse.data.isInvited) {
+          const invitationsResponse = await apiClient.get(
+            `/groups/${groupId}/member-invitated`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          if (invitationsResponse.data) {
+            setIsInvited(true);
+            setInvitedUserName(invitationsResponse.data.user_name);
+          }
+        }
+
+        // Fetch group members
+        const membersResponse = await apiClient.get(
+          `/groups/${groupId}/members`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setMembers(membersResponse.data);
       } catch (err) {
-        console.error("Failed to fetch group details:", err);
-        alert("Failed to fetch group details. Please try again later.");
+        console.error(err);
+        toast.error("Failed to fetch group details.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchGroupDetails();
   }, [groupId, token]);
 
-  useEffect(() => {
-    const fetchJoinRequests = async () => {
-      try {
-        const response = await apiClient.get(
-          `/groups/${groupId}/join-requests`
-        );
-        setJoinRequests(response.data || []);
-      } catch (err) {
-        console.error("Failed to fetch join requests:", err);
-        alert("Failed to fetch join requests.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJoinRequests();
-  }, [groupId]);
-
-  const handleJoinGroup = async () => {
-    try {
-      const response = await apiClient.post(
-        `/groups/${groupId}/request`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      alert(response.data.message); // Show success message from the backend
-      setIsMember(false); // Set as pending member
-    } catch (err) {
-      console.error("Error joining the group:", err);
-      if (err.response && err.response.data && err.response.data.error) {
-        alert(`Failed to send join request: ${err.response.data.error}`);
-      } else {
-        alert("Failed to send join request. Please try again later.");
-      }
-    }
-  };
-
-  const handleLeaveGroup = async () => {
-    try {
-      await apiClient.post(
-        `/groups/${groupId}/leave`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setIsMember(false); // User leaves the group
-      alert("Successfully left the group.");
-    } catch (err) {
-      console.error("Error leaving the group:", err);
-      alert("Failed to leave the group.");
-    }
-  };
-
   const handleDeleteGroup = async () => {
     try {
       await apiClient.delete(`/groups/delete/${groupId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      alert("Group deleted successfully.");
+      toast.success("Group deleted successfully.");
       navigate("/groups");
     } catch (err) {
-      console.error("Error deleting the group:", err);
-      alert("Failed to delete the group.");
+      toast.error("Failed to delete the group.");
     }
   };
 
-  const handleInviteMember = () => {
-    alert("Invite member functionality is not yet implemented."); // Placeholder for invite functionality
-  };
-
-  useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        const response = await apiClient.get(`groups/${groupId}/members`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setMembers(response.data); // Update members state with the fetched data
-      } catch (err) {
-        console.error("Failed to fetch group members:", err);
-        alert("Failed to fetch group members.");
-      }
-    };
-
-    fetchMembers();
-  }, [groupId, token]);
-
-  const handleAcceptRequest = async (userId) => {
-    try {
-      await apiClient.post(
-        `/groups/${groupId}/accept`,
-        { userId },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setJoinRequests((prevRequests) =>
-        prevRequests.filter((req) => req.user_id !== userId)
-      );
-
-      // Fetch updated members
-      const response = await apiClient.get(`/groups/${groupId}/members`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setMembers(response.data); // Update members list
-
-      alert("Request accepted.");
-    } catch (err) {
-      console.error("Error accepting the request:", err);
-      alert("Failed to accept request.");
-    }
-  };
-
-  const handleRejectRequest = async (userId) => {
-    try {
-      await apiClient.post(
-        `/groups/${groupId}/reject`,
-        { userId },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      // Remove the rejected request from the list
-      setJoinRequests((prevRequests) =>
-        prevRequests.filter((req) => req.user_id !== userId)
-      );
-
-      alert("Request rejected.");
-    } catch (err) {
-      console.error("Error rejecting the request:", err);
-      alert("Failed to reject request.");
-    }
-  };
-
+  // Handle member removal
   const handleDeleteMember = async (userId) => {
     try {
       await apiClient.delete(`/groups/${groupId}/members/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      // Remove the deleted member from the members list
       setMembers((prevMembers) =>
         prevMembers.filter((member) => member.user_id !== userId)
       );
-      alert("Member removed successfully.");
+      toast.success("Member removed successfully.");
     } catch (err) {
       console.error("Error removing the member:", err);
-      alert("Failed to remove member.");
+      toast.error("Failed to remove member.");
     }
   };
 
-  if (!group) {
-    return <div>Loading group details...</div>;
-  }
+  const handleRespondToInvite = async (response) => {
+    try {
+      const res = await apiClient.post(
+        `/groups/${groupId}/respond`,
+        { response },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.status === 200) {
+        if (response === "accept") {
+          setIsMember(true);
+          setIsInvited(false);
+          toast.success("You have successfully joined the group.");
+        } else if (response === "reject") {
+          setIsInvited(false);
+          toast.success("You have rejected the invitation.");
+        }
+      }
+    } catch (error) {
+      console.error("Error responding to invitation:", error);
+      toast.error("Failed to respond to the invitation.");
+    }
+  };
 
   return (
     <div className="group-page container">
-      <header>
-        <h1>{group.group_name}</h1>
-        {isAdmin && <p className="admin-label">Admin</p>}{" "}
-        {/* Show "Admin" label */}
-        {isAdmin && (
-          <button
-            className="btn danger"
-            id="delete-group"
-            onClick={handleDeleteGroup}
-          >
-            Delete Group
-          </button>
-        )}
-      </header>
+      <GroupHeader
+        group={group}
+        isAdmin={isAdmin}
+        onDeleteGroup={handleDeleteGroup}
+      />
+
+      <button
+        className="btn chat"
+        onClick={() => (window.location.href = "chat.html")}
+      >
+        Chat
+      </button>
+      <button className="btn share-movie" id="share-movie">
+        Share a Movie
+      </button>
 
       <section className="group-info">
-        <h2>Group Actions</h2>
-        {!isAdmin && (
-          <>
-            {!isMember && (
-              <button
-                className="btn primary"
-                id="join-group"
-                onClick={handleJoinGroup}
-              >
-                Join Group
-              </button>
-            )}
-
-            {isMember && (
-              <button
-                className="btn secondary"
-                id="leave-group"
-                onClick={handleLeaveGroup}
-              >
-                Leave Group
-              </button>
-            )}
-          </>
-        )}
+        <GroupActions
+          isAdmin={isAdmin}
+          isMember={isMember}
+          isInvited={isInvited}
+          groupId={groupId}
+          token={token}
+          setShowInviteModal={setShowInviteModal}
+          setIsMember={setIsMember}
+          setIsInvited={setIsInvited}
+        />
+        <MemberManagement
+          members={members}
+          isAdmin={isAdmin}
+          handleDeleteMember={handleDeleteMember}
+        />
 
         {isAdmin && (
-          <button
-            className="btn secondary"
-            id="invite-member"
-            onClick={handleInviteMember}
-          >
-            Invite Member
-          </button>
+          <JoinRequests
+            joinRequests={joinRequests}
+            groupId={groupId}
+            token={token}
+            setJoinRequests={setJoinRequests}
+            setMembers={setMembers}
+          />
         )}
 
-        <button
-          className="btn chat"
-          onClick={() => (window.location.href = "chat.html")}
-        >
-          Chat
-        </button>
+        {!isAdmin && isInvited && (
+          <div className="invitation-response">
+            <h2 className="invitation-title">
+              {invitedUserName}, You have been invited to join this group!
+            </h2>
+            <div className="invitation-buttons">
+              <button
+                className="btn accept"
+                onClick={() => handleRespondToInvite("accept")}
+              >
+                Accept
+              </button>
+              <button
+                className="btn reject"
+                onClick={() => handleRespondToInvite("reject")}
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        )}
 
-        <button className="btn share-movie" id="share-movie">
-          Share a Movie
-        </button>
+        {showInviteModal && (
+          <InviteModal
+            groupId={groupId}
+            token={token}
+            setShowInviteModal={setShowInviteModal}
+          />
+        )}
       </section>
-
-      <section className="member-management">
-        <h2>Members</h2>
-        <ul className="member-list">
-          {members.length === 0 ? (
-            <p>No members in the group.</p>
-          ) : (
-            members.map((member) => (
-              <li key={member.user_id}>
-                <span>{member.user_email}</span>
-                <span>{member.role}</span>
-                {isAdmin &&
-                  member.role !== "admin" && ( // Admins can delete non-admin members
-                    <button
-                      className="btn danger"
-                      onClick={() => handleDeleteMember(member.user_id)}
-                    >
-                      Remove
-                    </button>
-                  )}
-              </li>
-            ))
-          )}
-        </ul>
-      </section>
-
-      {isAdmin && (
-        <section className="join-requests">
-          <h2>Join Requests</h2>
-          <ul className="request-list">
-            {loading ? (
-              <p>Loading join requests...</p>
-            ) : joinRequests.length === 0 ? (
-              <p>No pending requests.</p>
-            ) : (
-              joinRequests.map((request) => (
-                <li key={request.user_id}>
-                  <span>{request.user_email}</span>
-                  <span>{request.role}</span>
-                  {request.status === "pending" ? (
-                    <>
-                      <button
-                        className="btn accept"
-                        onClick={() => handleAcceptRequest(request.user_id)}
-                      >
-                        Accept
-                      </button>
-                      <button
-                        className="btn reject"
-                        onClick={() => handleRejectRequest(request.user_id)}
-                      >
-                        Reject
-                      </button>
-                    </>
-                  ) : request.status === "accepted" ? (
-                    <span className="status accepted">Accepted</span>
-                  ) : null}
-                </li>
-              ))
-            )}
-          </ul>
-        </section>
-      )}
-
-      {/* <section className="group-details">
-        <h2>Group by: {group.admin_email}</h2>
-      </section> */}
     </div>
   );
 };

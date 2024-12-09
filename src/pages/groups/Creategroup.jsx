@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../api/api";
-// import "./groupsPageGeneral.css";
 
 const Creategroup = () => {
   const [groupName, setGroupName] = useState("");
@@ -33,7 +32,7 @@ const Creategroup = () => {
 
   return (
     <div>
-      <h2 style={{ color: "#ffffff" }}>Create a New Group</h2>
+      <h2>Create a New Group</h2>
       <input
         type="text"
         placeholder="Enter group name"

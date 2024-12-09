@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/groups/groupsPageGeneral.css";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../api/api";
 
@@ -12,7 +11,7 @@ const GroupsPageGeneral = () => {
     const fetchGroups = async () => {
       try {
         const response = await apiClient.get("groups/all");
-        console.log(response.data);
+        // console.log(response.data);
         setGroups(response.data);
       } catch (err) {
         console.error("Failed to fetch groups:", err);
@@ -48,7 +47,7 @@ const GroupsPageGeneral = () => {
         <thead>
           <tr>
             <th>Group Name</th>
-            <th>Owner Email</th>
+            <th>Owner</th>
             <th>Created At</th>
           </tr>
         </thead>

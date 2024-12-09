@@ -83,6 +83,9 @@ const Signup = () => {
           </span>
         </div>
         <button type="submit">Sign Up</button>
+        <i>
+          **Password must contain at least one capital letter and one number
+        </i>
       </form>
     </div>
   );
