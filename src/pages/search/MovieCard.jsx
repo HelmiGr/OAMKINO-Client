@@ -1,14 +1,21 @@
 // MovieCard.js
-import React from 'react';
-import '../../styles/search/MovieCard.css';
+import React from "react";
+import "../../styles/search/MovieCard.css";
 
-function MovieCard({ movie, onSelect }) {
+const MovieCard = ({ movie, onAddToGroup, groupId }) => {
   return (
-    <div className="movie-card" onClick={() => onSelect(movie)}>
+    <div className="movie-card">
       <img src={movie.imageUrl} alt={movie.title} className="thumbnail" />
-      <p><strong>{movie.title}</strong> ({movie.productionYear})</p>
+      <p>
+        <strong className="movie-tittle">{movie.title}</strong> (
+        {movie.productionYear})
+      </p>
+      {/* Show the button only if groupId is present */}
+      {groupId && (
+        <button onClick={() => onAddToGroup(movie.id)}>Add to Group</button>
+      )}
     </div>
   );
-}
+};
 
 export default MovieCard;

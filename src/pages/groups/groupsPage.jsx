@@ -8,6 +8,7 @@ import GroupActions from "./groups_components/GroupActions";
 import MemberManagement from "./groups_components/MemberManagement";
 import JoinRequests from "./groups_components/JoinRequests";
 import InviteModal from "./groups_components/InviteModal";
+import GroupMovies from "./custom_components/GroupMovies";
 
 const GroupPage = () => {
   const { groupId } = useParams();
@@ -81,6 +82,10 @@ const GroupPage = () => {
     fetchGroupDetails();
   }, [groupId, token]);
 
+  const handleAddMovies = () => {
+    navigate(`/search?groupId=${groupId}`);
+  };
+
   const handleDeleteGroup = async () => {
     try {
       await apiClient.delete(`/groups/delete/${groupId}`, {
@@ -141,15 +146,13 @@ const GroupPage = () => {
         onDeleteGroup={handleDeleteGroup}
       />
 
-      <button
-        className="btn chat"
-        onClick={() => (window.location.href = "chat.html")}
-      >
-        Chat
-      </button>
-      <button className="btn share-movie" id="share-movie">
-        Share a Movie
-      </button>
+      <div className="btn share-movie" id="share-movie">
+        {isMember && ( // Only show if the user is a member
+          <button className="btn add-movie" onClick={handleAddMovies}>
+            Add Movies to Group
+          </button>
+        )}
+      </div>
 
       <section className="group-info">
         <GroupActions
@@ -208,6 +211,8 @@ const GroupPage = () => {
           />
         )}
       </section>
+
+      <GroupMovies groupId={groupId} token={token} />
     </div>
   );
 };
