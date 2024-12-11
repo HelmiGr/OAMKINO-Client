@@ -49,7 +49,7 @@ function App() {
               <Route path="/groups" element={<GroupPageGeneral />} />
               <Route path="/groupPage/:groupId" element={<GroupPage />} />
               <Route path="/createGroup" element={<Creategroup />} />
-              <Route path="/groupPage/:group_name" element={<GroupPage />} />
+              {/* <Route path="/groupPage/:group_name" element={<GroupPage />} /> */}
               <Route path="/yourGroup" element={<YourGroups />} />
             </Routes>
           </div>

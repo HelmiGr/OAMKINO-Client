@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
-import '../../styles/forum/GroupForum.css';
-import GroupPost from './GroupPost'; 
-import GroupPostingBox from './GroupPostingBox';
-import { format } from 'date-fns';
-import apiClient from '../../api/api';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "../../styles/forum/GroupForum.css";
+import GroupPost from "./GroupPost";
+import GroupPostingBox from "./GroupPostingBox";
+import { format } from "date-fns";
+import apiClient from "../../api/api";
 
 // route will be /forum/:groupId
 
@@ -24,19 +24,19 @@ export default function GroupForum() {
         // fetch posts for the specific group
         const response = await apiClient.get(`/forum/${id}`);
 
-        const mappedPosts = response.data.map(post => ({
-            id: post.message_id, 
-            userId: post.user_id,
-            groupId: post.group_id,
-            userImage: '../../images/default-avatar-icon', // if we want to add a user image
-            userName: 'User Name', // if we want a username
-            date: format(new Date(post.timestamp), 'dd.MM.yyyy \'at\' HH:mm'), 
-            comment: post.message, 
+        const mappedPosts = response.data.map((post) => ({
+          id: post.message_id,
+          userId: post.user_id,
+          groupId: post.group_id,
+          userImage: "../../images/default-avatar-icon", // if we want to add a user image
+          userName: "User Name", // if we want a username
+          date: format(new Date(post.timestamp), "dd.MM.yyyy 'at' HH:mm"),
+          comment: post.message,
         }));
 
         setPosts(mappedPosts); // add these posts to the posts state
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error("Error fetching posts:", error);
       }
     };
 
@@ -49,9 +49,9 @@ export default function GroupForum() {
       // sends a delete req to the wanted URL (deletes post from db)
       await apiClient.delete(`/forum/${id}`);
       // deletes post from the app
-      setPosts(posts.filter(post => post.id !== id));
+      setPosts(posts.filter((post) => post.id !== id));
     } catch (error) {
-      console.error('Error deleting post:', error);
+      console.error("Error deleting post:", error);
     }
   };
 
@@ -62,37 +62,69 @@ export default function GroupForum() {
       await apiClient.put(`/forum/${id}`, { message: updatedComment });
 
       // update the post in the local state
-      setPosts(posts.map(post =>
-        post.id === id ? { ...post, comment: updatedComment } : post
-      ));
+      setPosts(
+        posts.map((post) =>
+          post.id === id ? { ...post, comment: updatedComment } : post
+        )
+      );
     } catch (error) {
-      console.error('Error updating post:', error);
+      console.error("Error updating post:", error);
     }
   };
 
+  // Add This function for post and tagname post
+  const handleNewPost = async (message) => {
+    try {
+      const response = await apiClient.post(`/forum/${id}`, {
+        message,
+        user_id: currentUser.id,
+        group_id: id,
+      });
+
+      const newPost = {
+        id: response.data.message_id,
+        userId: currentUser.id,
+        groupId: id,
+        userImage: "../../images/default-avatar-icon",
+        userName: "User Name",
+        date: format(new Date(), "dd.MM.yyyy 'at' HH:mm"),
+        comment: message,
+      };
+
+      setPosts([newPost, ...posts]); // Add new post to the top
+    } catch (error) {
+      console.error("Error adding post:", error);
+    }
+  };
+  <GroupPostingBox onSubmitPost={handleNewPost} />;
+  ////
+
   return (
-    <div className="group-forum"> 
+    <div className="group-forum">
       <div className="group-info">
-       <h1 className="group-name">Group Name</h1>
-       <p className="group-description">This is a brief description of the group. description text description text!</p>
+        <h1 className="group-name">Group Name</h1>
+        <p className="group-description">
+          This is a brief description of the group. description text description
+          text!
+        </p>
       </div>
       <div className="box-separator"></div>
       <form className="make-a-post-box">
-         <GroupPostingBox/>
+        <GroupPostingBox />
       </form>
       <div className="box-separator"></div>
-      <div className="forum-posts"> 
+      <div className="forum-posts">
         {posts.map((post, index) => (
           <GroupPost
             key={post.id}
             postId={post.id}
-            userImage='./Kayla-Person' // change if we want to add a picture
+            userImage="./Kayla-Person" // change if we want to add a picture
             userName={post.userName}
             date={post.date}
             comment={post.comment}
             userId={post.userId}
             groupId={post.groupId}
-            onDelete={() => handleDeletePost(post.id)} 
+            onDelete={() => handleDeletePost(post.id)}
             onEdit={handleEditPost}
             loggedInUserId={currentUser.id}
           />

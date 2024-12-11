@@ -77,8 +77,9 @@ body.home-page {
   right: 10px;
 }
 
+/* for show time */
 /* Container for the showtime list */
-.home-page #show-time-list {
+/* .home-page #show-time-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -88,17 +89,15 @@ body.home-page {
 
 .home-page .show-times-tittle {
   margin-top: 20px;
-}
+} */
 /* Card Styling */
-.home-page .card {
-  flex: 0 0 calc(25% - 20px); /* Ensure each card takes 25% of the row minus the gap */
+/* .home-page .card {
+  flex: 0 0 calc(25% - 20px);
   box-sizing: border-box;
   min-width: 300px;
-  background-color: hsl(228, 9%, 16%); /* added later */
+  background-color: hsl(228, 9%, 16%); 
   border: none;
   border-radius: 10px;
-  /* overflow: hidden;
-  width: 300px; */
   text-align: center;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -107,21 +106,21 @@ body.home-page {
 .home-page .card:hover {
   transform: scale(1.05);
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.5);
-}
+} */
 
 /* Image Styling */
-.home-page .card-img-top {
+/* .home-page .card-img-top {
   width: 100%;
   height: 300px;
   object-fit: cover;
-}
+} */
 
 /* Card Body Styling */
-.home-page .card-body {
+/* .home-page .card-body {
   padding: 20px;
-}
+} */
 
-.home-page .card-title {
+/* .home-page .card-title {
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: white;
@@ -131,10 +130,10 @@ body.home-page {
   font-size: 1rem;
   margin-bottom: 20px;
   color: #cccccc;
-}
+} */
 
 /* Button Styling */
-.home-page .btn,
+/* .home-page .btn,
 .home-page .show-all-button {
   display: inline-block;
   padding: 10px 20px;
@@ -153,16 +152,98 @@ body.home-page {
 }
 .home-page .show-all-button {
   margin-top: 20px;
-}
+} */
 
 /* Adjust responsive behavior */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .home-page .card {
-    flex: 0 0 calc(100% - 20px); /* 1 card per row */
+    flex: 0 0 calc(100% - 20px); 
     width: 100%;
   }
 
   .home-page .card-img-top {
     height: 250px;
   }
+} */
+/* end show time */
+
+/* Movies Section Title */
+.home-page .movies-title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  /* color: #333; */
+}
+
+/* Movie List Styling */
+.home-page #movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Movie Card Styling */
+.home-page .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  height: 400px; /* Set a fixed height for uniformity */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+}
+
+.home-page .card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.home-page .card-img-top {
+  width: 100%;
+  height: 250px; /* Fixed image height for consistency */
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.home-page .card-body {
+  flex: 1; /* Ensures the body grows to fill available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space out content evenly */
+  padding: 15px;
+  text-align: center;
+}
+
+.home-page .card-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+  min-height: 3em;
+}
+
+.home-page .show-all-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: hsl(338, 80%, 58%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.home-page .show-all-button:hover {
+  background-color: hsl(338, 80%, 48%);
+}
+.home-page .show-all-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

@@ -4,9 +4,9 @@ import "../../styles/home/Home.css";
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showtimes, setShowtimes] = useState([]);
-  const [uniqueMovies, setUniqueMovies] = useState([]);
+  const [moviesData, setMoviesData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMovie, setSelectedMovie] = useState(null); // For movie details view
 
   useEffect(() => {
     document.body.classList.add("home-page"); // Add class when Home is rendered
@@ -37,59 +37,39 @@ const Home = () => {
     },
   ];
 
-  // Fetch showtimes from API
+  // Fetch movies from Finnkino XML API
   useEffect(() => {
-    const fetchShowtimes = async () => {
+    const fetchMovies = async () => {
       try {
-        const theaterIDs = [
-          1012, 1039, 1038, 1002, 1045, 1031, 1032, 1033, 1013, 1015, 1016,
-          1017, 1041, 1018, 1019, 1021, 1034, 1035, 1047, 1022, 1046,
-        ]; // Add all theater IDs here
-
-        const showtimeList = [];
+        const response = await fetch("https://www.finnkino.fi/xml/Events/");
+        const data = await response.text();
         const parser = new DOMParser();
-
-        // Fetch showtimes from each theater
-        for (const id of theaterIDs) {
-          const response = await fetch(
-            `https://www.finnkino.fi/xml/Schedule/?area=${id}&nrOfDays=7`
-          );
-          const xmlText = await response.text();
-          const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-          const showElements = xmlDoc.getElementsByTagName("Show");
-
-          // Combine data from each theater
-          Array.from(showElements).forEach((show) => {
-            showtimeList.push({
-              id: show.getElementsByTagName("ID")[0]?.textContent,
-              title: show.querySelector("Title")?.textContent,
-              time: show.querySelector("dttmShowStart")?.textContent,
-              theater: show.querySelector("Theatre")?.textContent,
-              picture:
-                show.querySelector("EventSmallImagePortrait")?.textContent ||
-                "",
-            });
-          });
-        }
-
-        // Deduplicate movies by title
-        const uniqueMoviesMap = new Map();
-        showtimeList.forEach((show) => {
-          if (!uniqueMoviesMap.has(show.title)) {
-            uniqueMoviesMap.set(show.title, show);
-          }
-        });
-
-        setShowtimes(showtimeList);
-        setUniqueMovies(Array.from(uniqueMoviesMap.values())); // Extract unique movies
+        const xml = parser.parseFromString(data, "application/xml");
+        const events = Array.from(xml.getElementsByTagName("Event"));
+        const movies = events.map((event) => ({
+          id: event.querySelector("ID")?.textContent,
+          title: event.querySelector("Title")?.textContent,
+          productionYear: event.querySelector("ProductionYear")?.textContent,
+          genres: event.querySelector("Genres")?.textContent,
+          imageUrl: event.querySelector("Images > EventMediumImagePortrait")
+            ?.textContent,
+          synopsis: event.querySelector("Synopsis")?.textContent,
+          cast: Array.from(event.querySelectorAll("Cast Actor")).map(
+            (actor) => ({
+              firstName: actor.querySelector("FirstName")?.textContent,
+              lastName: actor.querySelector("LastName")?.textContent,
+            })
+          ),
+        }));
+        setMoviesData(movies);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching showtimes:", error);
+        console.error("Error fetching movies:", error);
         setLoading(false);
       }
     };
 
-    fetchShowtimes();
+    fetchMovies();
   }, []);
 
   // Auto-slide for carousel
@@ -101,7 +81,7 @@ const Home = () => {
   }, [slides.length]);
 
   return (
-    <>
+    <div>
       {/* Carousel Section */}
       <section className="carousel">
         <div className="carousel-container">
@@ -151,39 +131,56 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Showtimes Section */}
-      <section id="show-times-section">
+      {/* Movies Section */}
+      <section id="movies-section">
         <div className="container">
-          <h1 className="show-times-title">
-            <strong>Show Times</strong>
+          <h1 className="movies-title">
+            <strong>Movies</strong>
           </h1>
           {loading ? (
-            <div>Loading showtimes...</div>
+            <div>Loading movies...</div>
+          ) : selectedMovie ? (
+            // Movie Details View
+            <div className="movie-details">
+              <button onClick={() => setSelectedMovie(null)}>
+                Back to List
+              </button>
+              <h2>
+                {selectedMovie.title} ({selectedMovie.productionYear})
+              </h2>
+              <img
+                src={selectedMovie.imageUrl}
+                alt={selectedMovie.title}
+                className="movie-image"
+              />
+              <p>{selectedMovie.synopsis}</p>
+              <h4>Cast:</h4>
+              <ul>
+                {selectedMovie.cast.map((actor, index) => (
+                  <li key={index}>
+                    {actor.firstName} {actor.lastName}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ) : (
-            <div id="show-time-list">
-              {uniqueMovies.slice(0, 6).map((movie) => (
+            <div id="movies-list">
+              {moviesData.slice(0, 6).map((movie) => (
                 <div key={movie.id}>
                   <div className="card">
                     <img
-                      src={movie.picture}
+                      src={movie.imageUrl}
                       className="card-img-top"
                       alt={`${movie.title} Poster`}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{movie.title}</h5>
-
-                      <Link
-                        to={{
-                          pathname: `/showtimes_home/${movie.title}`,
-                        }}
-                        state={{
-                          movieTitle: movie.title,
-                          showtimes: showtimes,
-                        }}
+                      <button
                         className="btn btn-primary"
+                        onClick={() => setSelectedMovie(movie)}
                       >
                         View Details
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -192,12 +189,12 @@ const Home = () => {
           )}
         </div>
         <div>
-          <Link to="/showtimes" className="show-all-button">
+          <Link to="/search" className="show-all-button">
             SHOW ALL »
           </Link>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
