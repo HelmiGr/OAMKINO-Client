@@ -100,9 +100,9 @@ export default function Showtimes() {
         selectedTheatres={selectedTheatres}
         onFilterChange={setSelectedTheatres}
       />
-      <h1>Showtimes</h1>
+      <h1 style={{ color: 'white' }}>Showtimes</h1>
       {loading ? (
-        <p>Loading...</p>
+        <p style={{ color: 'white' }}>Loading...</p>
       ) : (
         <div className="showtimes">
           {filteredShowtimes.map((show, index) => (

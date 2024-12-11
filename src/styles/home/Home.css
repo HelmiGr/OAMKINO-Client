@@ -101,7 +101,8 @@ body.home-page {
   justify-content: space-between;
   width: 300px;
   height: 400px; /* Set a fixed height for uniformity */
-  border: 1px solid #ddd;
+  border: 1px solid #25272c;
+  background-color: #25272c;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

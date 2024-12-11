@@ -3,7 +3,7 @@
   width: 20%; /* Update to 20% to fit five cards per row */
   max-width: 220px; /* Optionally, set a maximum width */
   padding: 15px;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -49,7 +49,7 @@
   display: block; /* Separate title from year */
   font-size: 18px; /* Emphasize the title */
   margin-bottom: 5px; /* Space between title and year */
-  color: #222; /* Slightly darker for title */
+  color: #ffffff; /* Slightly darker for title */
 }
 
 .movie-card p span {

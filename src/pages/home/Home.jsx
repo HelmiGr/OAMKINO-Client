@@ -138,7 +138,7 @@ const Home = () => {
             <strong>Movies</strong>
           </h1>
           {loading ? (
-            <div>Loading movies...</div>
+            <div style={{ color: 'white' }}>Loading movies...</div>
           ) : selectedMovie ? (
             // Movie Details View
             <div className="movie-details">

@@ -32,7 +32,7 @@ const Creategroup = () => {
 
   return (
     <div>
-      <h2>Create a New Group</h2>
+      <h2 style={{ color: 'white' }}>Create a New Group</h2>
       <input
         type="text"
         placeholder="Enter group name"

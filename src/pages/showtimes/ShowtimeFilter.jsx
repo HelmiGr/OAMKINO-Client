@@ -14,7 +14,7 @@ export default function ShowtimeFilter({ theatres, selectedTheatres, onFilterCha
 
   return (
     <div className="filter-box">
-      <h2 className="filter-subtitle">Theatres</h2>
+      <h2 style={{ color: 'white' }} className="filter-subtitle">Theatres</h2>
       <div className="theatre-list">
         {theatres.map((theatre, index) => (
           <button
