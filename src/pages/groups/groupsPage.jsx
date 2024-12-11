@@ -147,11 +147,9 @@ const GroupPage = () => {
       />
 
       <div className="btn share-movie" id="share-movie">
-        {isMember && ( // Only show if the user is a member
-          <button className="btn add-movie" onClick={handleAddMovies}>
-            Add Movies to Group
-          </button>
-        )}
+        <button className="btn add-movie" onClick={handleAddMovies}>
+          Add Movies to Group
+        </button>
       </div>
 
       <section className="group-info">

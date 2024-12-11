@@ -7,15 +7,17 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
-  const signup = async (email, password) => {
+  const signup = async (email, username, password) => {
     await apiClient.post("/users/registration", {
       email,
+      user_name: username,
       password,
     });
   };
@@ -23,28 +25,48 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    // Check if passwords match
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
       return;
     }
 
-    toast.promise(signup(email, password), {
-      loading: "Signing up...",
-      success: () => {
-        navigate("/login");
-        return "Sign up successful!";
-      },
-      error: (d) => {
-        return d.response?.data?.error || "An error occurred.";
-      },
-    });
+    try {
+      await toast.promise(signup(email, username, password), {
+        loading: "Signing up...",
+        success: "Sign up successful!",
+        error: (error) => {
+          console.error("Signup error:", {
+            message: error.message,
+            response: error.response,
+            request: error.request,
+          });
+          return error.response?.data?.error || "An unexpected error occurred.";
+        },
+      });
+
+      // Navigate to login on success
+      navigate("/login");
+    } catch (error) {
+      console.error("Unexpected error during signup:", {
+        message: error.message,
+        response: error.response,
+        request: error.request,
+      });
+      toast.error("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
     <div className="form-container">
       <form onSubmit={handleSignup} className="form">
         <h2>Sign Up</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
         <input
           type="email"
           placeholder="Email"
@@ -83,9 +105,6 @@ const Signup = () => {
           </span>
         </div>
         <button type="submit">Sign Up</button>
-        <i>
-          **Password must contain at least one capital letter and one number
-        </i>
       </form>
     </div>
   );
