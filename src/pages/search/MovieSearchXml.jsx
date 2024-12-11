@@ -11,7 +11,6 @@ function MovieSearchXml() {
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const groupId = params.get("groupId");
-  console.log("Group ID:", groupId); // Add this for debugging
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -83,17 +82,15 @@ function MovieSearchXml() {
     }
 
     try {
-      console.log("Attempting to add movie:", movieId, "to group:", groupId);
       const response = await apiClient.post(
         `/Customgroup/${groupId}/movies`,
         { movieId },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass the token here
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log("API Response:", response.data);
       alert("Movie added successfully!");
       navigate(`/groupPage/${groupId}`);
     } catch (error) {
@@ -105,14 +102,16 @@ function MovieSearchXml() {
     }
   };
 
-  // Reset all filters
   const handleResetFilters = () => {
     setSearchTerm("");
     setSelectedYear("");
     setSelectedGenre("");
   };
 
-  // Filter movies based on search term, year, and genre
+  const handleSelectMovie = (movie) => {
+    setSelectedMovie(movie);
+  };
+
   const filteredMovies = moviesData.filter((movie) => {
     return (
       movie.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -167,8 +166,9 @@ function MovieSearchXml() {
                   <MovieCard
                     key={movie.id}
                     movie={movie}
-                    groupId={groupId} // Pass groupId as a prop
+                    groupId={groupId}
                     onAddToGroup={(movieId) => handleAddToGroup(movieId)}
+                    onSelectMovie={handleSelectMovie}
                   />
                 ))
               ) : (
