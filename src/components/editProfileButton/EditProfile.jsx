@@ -3,7 +3,7 @@ import './EditProfile.css'; // Custom styling
 
 // Configuration
 const config = { 
-    API_URL: 'http://localhost:5000', // Backend URL
+    API_URL: 'http://localhost:3001', // Backend URL
 };
 
 const EditProfile = ({ userId }) => {
