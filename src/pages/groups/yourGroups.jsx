@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import apiClient from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import "../../styles/groups/groupsPageGeneral.css";
+import { toast } from "react-hot-toast";
 
 const YourGroups = () => {
   const [groups, setGroups] = useState([]);
@@ -9,6 +10,11 @@ const YourGroups = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!token) {
+      toast("You need to log in to access this page.");
+      navigate("/login");
+      return;
+    }
     const fetchYourGroups = async () => {
       try {
         const response = await apiClient.get("groups/your-groups", {

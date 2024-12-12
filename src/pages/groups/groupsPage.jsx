@@ -28,7 +28,7 @@ const GroupPage = () => {
   // Fetch group details on component mount
   useEffect(() => {
     if (!token) {
-      toast.error("You need to log in to access this page.");
+      toast("You need to log in to access this page.");
       navigate("/login");
       return;
     }
