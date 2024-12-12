@@ -46,6 +46,9 @@ const GroupActions = ({
       if (response.status === 200) {
         toast.success("Successfully left the group.");
         setIsMember(false);
+
+        // Reload the page
+        window.location.reload();
       } else {
         toast.error("Failed to leave the group.");
       }
@@ -66,17 +69,6 @@ const GroupActions = ({
           <button className="btn secondary" onClick={handleLeaveGroup}>
             Leave Group
           </button>
-
-          {/* {!isMember && !isInvited && (
-            <button className="btn primary" onClick={handleJoinGroup}>
-              Join Group
-            </button>
-          )}
-          {!isMember && !isInvited &&  (
-            <button className="btn secondary" onClick={handleLeaveGroup}>
-              Leave Group
-            </button>
-          )} */}
         </div>
       )}
       {isAdmin && (

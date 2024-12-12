@@ -11,6 +11,24 @@ export default function GroupForum() {
   const currentUser = { id: 1 }; // Replace with actual logged-in user's ID
   const [posts, setPosts] = useState([]);
 
+  const [groupName, setGroupName] = useState("");
+
+  useEffect(() => {
+    const fetchGroupDetails = async () => {
+      try {
+        const response = await apiClient.get(`/groups/all/${id}`);
+        setGroupName(response.data.group_name);
+      } catch (error) {
+        console.error(
+          "Error fetching group details:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    fetchGroupDetails();
+  }, [id]);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -87,9 +105,13 @@ export default function GroupForum() {
   return (
     <div className="group-forum">
       <div className="group-info">
-        <h1 className="group-name">Group Name</h1>
+        <h3 className="group-name">
+          Group {groupName ? groupName : "Loading group name..."}
+        </h3>
+
         <p className="group-description">
-          This is a brief description of the group.
+          Welcome to our forum, where you can share your passion for movies
+          ❤️❤️❤️
         </p>
       </div>
       <div className="box-separator"></div>

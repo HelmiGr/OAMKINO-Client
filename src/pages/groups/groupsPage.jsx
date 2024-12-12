@@ -137,6 +137,8 @@ const GroupPage = () => {
           setIsInvited(false);
           toast.success("You have rejected the invitation.");
         }
+        // Reload the page
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error responding to invitation:", error);

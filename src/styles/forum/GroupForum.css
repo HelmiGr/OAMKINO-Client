@@ -1,317 +1,317 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 body {
-    display: block;
-    margin: 0;
-    padding: 0;
-    font-family: system-ui;
-    font-size: 16px;
-    background: hsl(240, 4%, 11%);
-    margin-top: 20px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui;
+  font-size: 16px;
+  background: hsl(240, 4%, 11%);
+  margin-top: 20px;
 }
 
-.flex{
-    display: flex;
-    justify-content: space-between;
-    width: 100%
+.flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .forum-posts {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
-img{
-    width: 100%;
-    height: 100%;
+img {
+  width: 100%;
+  height: 100%;
 }
 
-.message-box .comment-list{
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 2px #0002;
+.message-box .comment-list {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px #0002;
 }
 
 .group-forum {
-    width: 650px;
-    height: auto;
-    margin: 0 auto;
+  width: 650px;
+  height: auto;
+  margin: 0 auto;
 }
 
 .comment-list {
-    width: 100%;
-    margin-bottom: 12px;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
 .comment-list .user {
-    display: flex;
-    padding: 8px;
-    overflow: hidden;
+  display: flex;
+  padding: 8px;
+  overflow: hidden;
 }
 
 .comment-list .user img {
-    height: 38px;
-    width: 38px;
-    border-radius: 50%;
-    margin-right: 10px;
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .comment-list .name {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .comment-list .day {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .reply {
-    display: flex;
-    align-items: center;
-    gap: 20px; 
-    justify-content: center;
-    padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  padding: 10px;
 }
 
 .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #777;
 }
 
 .icon:hover {
-    color: #000;
-    cursor: pointer;
+  color: #000;
+  cursor: pointer;
 }
 
 /*.post-comment .comment {
     /* padding: 0 0 15px 58px; */
 
-
 .message-box {
-    padding: 10px;
-    overflow: hidden;
+  padding: 10px;
+  overflow: hidden;
 }
 
 .message-box .user {
-    display: flex;
-    width: min-content;
+  display: flex;
+  width: min-content;
 }
 
 .message-box .image {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 50%;
 }
 
 .message-box textarea {
-    background: #eee;
-    width: fill;
-    height: 152px;
-    margin: 10px 0;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0 0 0 0.5px #003;
+  background: #eee;
+  width: fill;
+  height: 152px;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 0.5px #003;
 }
 
-.message-box textarea:focus{
-    outline-color: #009cff;
+.message-box textarea:focus {
+  outline-color: #009cff;
 }
 
 .message-box .comment-submit {
-    float: right;
-    padding: 6px 14px;
-    border: none;
-    background: #009cff;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 2px;
+  float: right;
+  padding: 6px 14px;
+  border: none;
+  background: #009cff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 2px;
 }
 
-.message-box .comment-submit:hover{
-    background: #027ecc;
+.message-box .comment-submit:hover {
+  background: #027ecc;
 }
 
 /* newer */
 
 .make-a-post-box {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .box-separator {
-    border-top: 2px solid #e91e63;
-    padding-bottom: 20px;
+  border-top: 2px solid #e91e63;
+  padding-bottom: 20px;
 }
 
 .group-info {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .group-name {
-    font-size: 2rem;
-    color: white;
-    margin-bottom: 10px;
-  }
-  
-  .group-description {
-    font-size: 1rem;
-    color: white;
-  }
-  
-  @media (min-width: 481px) and (max-width: 740px) {
-    body {
-        font-size: 15px; 
-    }
-
-    .group-forum {
-        width: 85%; 
-        padding: 0 15px; 
-    }
-
-    .comment-list .user {
-        flex-direction: row; 
-        align-items: center; 
-    }
-
-    .comment-list .user img {
-        height: 30px;
-        width: 30px;
-        margin-right: 8px;
-    }
-
-    .comment-list {
-        font-size: 14px; 
-        padding: 10px;
-    }
-
-    .reply {
-        flex-direction: row; 
-        gap: 15px; 
-    }
-
-    .message-box textarea {
-        height: 120px; 
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .message-box .comment-submit {
-        padding: 8px 10px; 
-        font-size: 14px; 
-        margin: 10px auto; 
-        display: block; 
-    }
-
-    .group-name {
-        font-size: 1.5rem; 
-    }
-
-    .group-description {
-        font-size: 0.9rem;
-    }
-
-    .box-separator {
-        width: 90%; 
-        margin: 0 auto;
-    }
-
-    .icon {
-        width: 22px;
-        height: 22px;
-    }
-
-    .flex {
-        flex-wrap: wrap; 
-        justify-content: space-around; 
-    }
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-  @media (max-width: 480px) {
-    body {
-        font-size: 14px;
-    }
+.group-name {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
 
-    .group-forum {
-        width: 95%;
-        margin: 0 auto;
-    }
+.group-description {
+  font-size: 1.1rem;
+  color: white;
+}
 
-    .comment-list .user {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+@media (min-width: 481px) and (max-width: 740px) {
+  body {
+    font-size: 15px;
+  }
 
-    .comment-list .user img {
-        height: 24px;
-        width: 24px;
-        margin-bottom: 5px;
-    }
+  .group-forum {
+    width: 85%;
+    padding: 0 15px;
+  }
 
-    .comment-list {
-        padding: 8px;
-    }
+  .comment-list .user {
+    flex-direction: row;
+    align-items: center;
+  }
 
-    .reply {
-        padding: 8px;
-    }
+  .comment-list .user img {
+    height: 30px;
+    width: 30px;
+    margin-right: 8px;
+  }
 
-    .message-box textarea {
-        height: 100px;
-        padding: 8px;
-    }
+  .comment-list {
+    font-size: 14px;
+    padding: 10px;
+  }
 
-    .message-box .comment-submit {
-        padding: 6px;
-    }
+  .reply {
+    flex-direction: row;
+    gap: 15px;
+  }
 
-    .group-name {
-        font-size: 1.2rem;
-    }
+  .message-box textarea {
+    height: 120px;
+    font-size: 14px;
+    padding: 8px;
+  }
 
-    .group-description {
-        font-size: 0.8rem;
-    }
+  .message-box .comment-submit {
+    padding: 8px 10px;
+    font-size: 14px;
+    margin: 10px auto;
+    display: block;
+  }
 
-    .icon {
-        width: 18px;
-        height: 18px;
-    }
+  .group-name {
+    font-size: 1.5rem;
+  }
 
-    .flex {
-        flex-direction: column;
-        align-items: center;
-    }
+  .group-description {
+    font-size: 0.9rem;
+  }
+
+  .box-separator {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .flex {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .group-forum {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .comment-list .user {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .comment-list .user img {
+    height: 24px;
+    width: 24px;
+    margin-bottom: 5px;
+  }
+
+  .comment-list {
+    padding: 8px;
+  }
+
+  .reply {
+    padding: 8px;
+  }
+
+  .message-box textarea {
+    height: 100px;
+    padding: 8px;
+  }
+
+  .message-box .comment-submit {
+    padding: 6px;
+  }
+
+  .group-name {
+    font-size: 1.2rem;
+  }
+
+  .group-description {
+    font-size: 0.8rem;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .flex {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media (max-width: 360px) {
-    .group-forum {
-        width: 100%;
-    }
+  .group-forum {
+    width: 100%;
+  }
 
-    .comment-list {
-        font-size: 12px;
-    }
+  .comment-list {
+    font-size: 12px;
+  }
 
-    .message-box textarea {
-        height: 80px;
-    }
+  .message-box textarea {
+    height: 80px;
+  }
 
-    .message-box .comment-submit {
-        font-size: 12px;
-        padding: 5px;
-    }
+  .message-box .comment-submit {
+    font-size: 12px;
+    padding: 5px;
+  }
 
-    .group-name {
-        font-size: 1rem;
-    }
+  .group-name {
+    font-size: 1rem;
+  }
 
-    .group-description {
-        font-size: 0.7rem;
-    }
+  .group-description {
+    font-size: 0.7rem;
+  }
 }

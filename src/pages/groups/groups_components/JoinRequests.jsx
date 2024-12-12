@@ -25,6 +25,9 @@ const JoinRequests = ({
           prevRequests.filter((req) => req.user_id !== userId)
         );
         toast.success("Request accepted successfully.");
+
+        // Reload the page
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error accepting join request:", error);

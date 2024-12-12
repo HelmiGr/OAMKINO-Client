@@ -4,7 +4,7 @@ import TagInput from "./Tagnameinput";
 
 export default function GroupPostingBox({ onSubmitPost }) {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // To manage submission state
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handlePostSubmit = async () => {
     if (isSubmitting || !currentMessage.trim()) return;
@@ -13,6 +13,7 @@ export default function GroupPostingBox({ onSubmitPost }) {
     try {
       await onSubmitPost(currentMessage.trim());
       setCurrentMessage("");
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting post:", error);
     } finally {
@@ -22,7 +23,9 @@ export default function GroupPostingBox({ onSubmitPost }) {
 
   return (
     <div>
-      <p className="posting-box-text">Add a post</p>
+      <p className="posting-box-text">
+        <strong>Add a post</strong>
+      </p>
       <TagInput onMessageChange={setCurrentMessage} />
       <div className="post-container">
         <button

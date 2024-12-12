@@ -55,11 +55,11 @@ const TagInput = ({ onMessageChange }) => {
         <div
           style={{
             position: "absolute",
-            top: "100%",
+            top: "50%",
             left: 0,
-            width: "100%",
-            border: "1px solid #ccc",
-            background: "#fff",
+            width: "50%",
+            border: "1px solid #787878",
+            background: "#333",
             zIndex: 1000,
           }}
         >
@@ -69,7 +69,8 @@ const TagInput = ({ onMessageChange }) => {
               style={{
                 padding: "8px",
                 cursor: "pointer",
-                borderBottom: "1px solid #eee",
+                borderBottom: "1px solid #787878",
+                color: "#fff",
               }}
               onClick={() => handleSuggestionClick(user.user_name)}
             >
