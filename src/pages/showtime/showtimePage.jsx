@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 //import ReviewComponent from "../reviews/reviews";
 //import RatingComponent from "../reviews/rating";
 import apiClient from '../../api/api'; 
+import PostReviews from "../reviews/postreviews";
+
 
 const ShowtimePage = () => {
   const { id } = useParams();
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
-  const [newReview, setNewReview] = useState("");
-  const [userRating, setUserRating] = useState(0);
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -59,52 +59,28 @@ const ShowtimePage = () => {
     fetchShowDetails();
   }, [id]);
 
+  // Handle fetching reviews when the component mounts or when the reviews state changes
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await apiClient.get(`/movies/${id}/reviews`);
+        setReviews(response.data.reviews);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
+    fetchReviews();
+  }, [id]);
+
+  // If data is still loading, show a loading message
   if (loading) {
-    return <div style={{ color: 'white' }}>Loading show details...</div>;
+    return <div style={{ color: "white" }}>Loading show details...</div>;
   }
 
+  // If showDetails is not found, display an error message
   if (!showDetails) {
-    return <div style={{ color: 'white' }}>Show details not available.</div>;
-  }
-
-  const handleReviewSubmit = async () => {
-    if (!newReview || userRating === 0) {
-      toast.error("Please provide a review and a rating!");
-      return;
-    }
-
-    try {
-      // Here you can send the review and rating to your API
-      const response = await apiClient.post(`/showtime/${id}/reviews`, {
-        review: newReview,
-        rating: userRating,
-      });
-
-      // Assuming the response returns the updated reviews list
-      setReviews(response.data.reviews);
-      setNewReview("");
-      setUserRating(0);
-      toast.success("Review added successfully!");
-    } catch (error) {
-      console.error("Error submitting review:", error);
-      toast.error("Failed to submit review.");
-    }
-  };
-
-  const handleRatingChange = (newRating) => {
-    setUserRating(newRating);
-  };
-
-  const handleReviewChange = (event) => {
-    setNewReview(event.target.value);
-  };
-
-  if (loading) {
-    return <div>Loading show details...</div>;
-  }
-
-  if (!showDetails) {
-    return <div>Show details not available.</div>;
+    return <div style={{ color: "white" }}>Show details not available.</div>;
   }
 
   return (
@@ -119,7 +95,7 @@ const ShowtimePage = () => {
     >
       <h1
         style={{
-          color: 'white',
+          color: "white",
           fontSize: "2.5em",
           marginBottom: "20px",
         }}
@@ -135,90 +111,45 @@ const ShowtimePage = () => {
           alt={`${showDetails.title} poster`}
         />
       </div>
-      <p style={{ color: 'white', marginTop: "20px", fontSize: "1.2em" }}>
-        <strong >Time:</strong> {showDetails.time}
+      <p style={{ color: "white", marginTop: "20px", fontSize: "1.2em" }}>
+        <strong>Time:</strong> {showDetails.time}
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Theater:</strong> {showDetails.theater}
+      <p style={{ color: "white" }}>
+        <strong>Theater:</strong> {showDetails.theater}
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Duration:</strong> {showDetails.duration} minutes
+      <p style={{ color: "white" }}>
+        <strong>Duration:</strong> {showDetails.duration} minutes
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Genres:</strong> {showDetails.genres}
+      <p style={{ color: "white" }}>
+        <strong>Genres:</strong> {showDetails.genres}
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Rating:</strong> {showDetails.rating}
+      <p style={{ color: "white" }}>
+        <strong>Rating:</strong> {showDetails.rating}
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Release Date:</strong>{" "}
+      <p style={{ color: "white" }}>
+        <strong>Release Date:</strong>{" "}
         {new Date(showDetails.releaseDate).toLocaleDateString()}
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Language:</strong> {showDetails.language}
+      <p style={{ color: "white" }}>
+        <strong>Language:</strong> {showDetails.language}
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Subtitles:</strong> {showDetails.subtitles || "None"}
+      <p style={{ color: "white" }}>
+        <strong>Subtitles:</strong> {showDetails.subtitles || "None"}
       </p>
-      <p style={{ color: 'white' }}>
-        <strong >Presentation:</strong> {showDetails.presentation}
+      <p style={{ color: "white" }}>
+        <strong>Presentation:</strong> {showDetails.presentation}
       </p>
-      
-      {/* Rating and Review Section */}
-      <div style={{ marginTop: "30px", width: "80%", textAlign: "center" }}>
-        <h3 style={{ color: 'white' }}>Submit Your Review and Rating</h3>
-        <div>
-          <label>
-            Rating:
-            <input
-              type="number"
-              value={userRating}
-              min="1"
-              max="5"
-              onChange={(e) => handleRatingChange(parseInt(e.target.value))}
-              style={{
-                width: "50px",
-                marginLeft: "10px",
-                fontSize: "1.2em",
-                textAlign: "center",
-              }}
-            />
-          </label>
-        </div>
-        <textarea
-          value={newReview}
-          onChange={handleReviewChange}
-          placeholder="Write your review here"
-          style={{
-            width: "100%",
-            height: "100px",
-            marginTop: "10px",
-            padding: "10px",
-            fontSize: "1.2em",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-          }}
-        />
-        <button
-          onClick={handleReviewSubmit}
-          style={{
-            marginTop: "10px",
-            padding: "10px 20px",
-            fontSize: "1.2em",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Submit Review
-        </button>
-      </div>
 
-      {/* Reviews List */}
+      {/* Render PostReviews Component to handle the review and rating */}
+      <PostReviews
+        movieId={id}
+        loggedInUser={{ id: "sampleUserId", name: "Sample User" }} // Replace with actual logged-in user data
+        setReviews={setReviews} // Pass the setReviews to update the review list
+      />
+
+      {/* Display the Reviews */}
       <div style={{ marginTop: "30px", width: "80%" }}>
-        <h3 style={{ color: 'white' }}>Reviews</h3>
+        <h3 style={{ color: "white" }}>Reviews</h3>
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
             <div key={index} style={{ marginBottom: "20px" }}>
@@ -227,7 +158,7 @@ const ShowtimePage = () => {
             </div>
           ))
         ) : (
-          <p style={{ color: 'white' }}>No reviews yet.</p>
+          <p style={{ color: "white" }}>No reviews yet.</p>
         )}
       </div>
 

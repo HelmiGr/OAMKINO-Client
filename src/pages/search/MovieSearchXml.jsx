@@ -6,6 +6,8 @@ import MovieCard from "./MovieCard";
 import apiClient from "../../api/api";
 import AddToGroupMovies from "../groups/custom_components/AddToGroupMovies"; // Import modal
 import FavouriteButton from "../../components/favourite/addFavourite";
+import PostReviews from "../reviews/postreviews";
+
 function MovieSearchXml() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -183,6 +185,11 @@ function MovieSearchXml() {
           )}
         </section>
       </div>
+
+      {/* PostReviews component for review and rating */}
+      {selectedMovie && (
+        <PostReviews movieId={selectedMovie.id}  />
+      )}
 
       {/* AddToGroupModal */}
       <AddToGroupMovies onSubmit={handleAddToGroup} groups={groups} />
