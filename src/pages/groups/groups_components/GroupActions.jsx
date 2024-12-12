@@ -81,7 +81,7 @@ const GroupActions = ({
       )}
       {isAdmin && (
         <button
-          className="btn secondary"
+          className="btn secondary invited"
           onClick={() => setShowInviteModal(true)}
         >
           Invite Members

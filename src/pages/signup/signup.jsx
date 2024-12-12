@@ -86,7 +86,11 @@ const Signup = () => {
             className="toggle-password"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? <VisibilityOff /> : <Visibility />}
+            {showPassword ? (
+              <VisibilityOff className="icon" />
+            ) : (
+              <Visibility className="icon" />
+            )}
           </span>
         </div>
         <div className="password-container">
@@ -101,7 +105,11 @@ const Signup = () => {
             className="toggle-password"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
-            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+            {showConfirmPassword ? (
+              <VisibilityOff className="icon" />
+            ) : (
+              <Visibility className="icon" />
+            )}
           </span>
         </div>
         <button type="submit">Sign Up</button>
