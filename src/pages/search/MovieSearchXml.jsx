@@ -175,7 +175,7 @@ function MovieSearchXml() {
                 ))
               ) : (
                 <div className="no-results">
-                  <p>No movies found matching your criteria.</p>
+                  <p style={{ color: 'white' }}>No movies found matching your criteria.</p>
                   <button onClick={handleResetFilters}>Back to List</button>
                 </div>
               )}

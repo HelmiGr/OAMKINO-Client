@@ -60,11 +60,11 @@ const ShowtimePage = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading show details...</div>;
+    return <div style={{ color: 'white' }}>Loading show details...</div>;
   }
 
   if (!showDetails) {
-    return <div>Show details not available.</div>;
+    return <div style={{ color: 'white' }}>Show details not available.</div>;
   }
 
   const handleReviewSubmit = async () => {
@@ -119,6 +119,7 @@ const ShowtimePage = () => {
     >
       <h1
         style={{
+          color: 'white',
           fontSize: "2.5em",
           marginBottom: "20px",
         }}
@@ -134,38 +135,38 @@ const ShowtimePage = () => {
           alt={`${showDetails.title} poster`}
         />
       </div>
-      <p style={{ marginTop: "20px", fontSize: "1.2em" }}>
-        <strong>Time:</strong> {showDetails.time}
+      <p style={{ color: 'white', marginTop: "20px", fontSize: "1.2em" }}>
+        <strong >Time:</strong> {showDetails.time}
       </p>
-      <p>
-        <strong>Theater:</strong> {showDetails.theater}
+      <p style={{ color: 'white' }}>
+        <strong >Theater:</strong> {showDetails.theater}
       </p>
-      <p>
-        <strong>Duration:</strong> {showDetails.duration} minutes
+      <p style={{ color: 'white' }}>
+        <strong >Duration:</strong> {showDetails.duration} minutes
       </p>
-      <p>
-        <strong>Genres:</strong> {showDetails.genres}
+      <p style={{ color: 'white' }}>
+        <strong >Genres:</strong> {showDetails.genres}
       </p>
-      <p>
-        <strong>Rating:</strong> {showDetails.rating}
+      <p style={{ color: 'white' }}>
+        <strong >Rating:</strong> {showDetails.rating}
       </p>
-      <p>
-        <strong>Release Date:</strong>{" "}
+      <p style={{ color: 'white' }}>
+        <strong >Release Date:</strong>{" "}
         {new Date(showDetails.releaseDate).toLocaleDateString()}
       </p>
-      <p>
-        <strong>Language:</strong> {showDetails.language}
+      <p style={{ color: 'white' }}>
+        <strong >Language:</strong> {showDetails.language}
       </p>
-      <p>
-        <strong>Subtitles:</strong> {showDetails.subtitles || "None"}
+      <p style={{ color: 'white' }}>
+        <strong >Subtitles:</strong> {showDetails.subtitles || "None"}
       </p>
-      <p>
-        <strong>Presentation:</strong> {showDetails.presentation}
+      <p style={{ color: 'white' }}>
+        <strong >Presentation:</strong> {showDetails.presentation}
       </p>
       
       {/* Rating and Review Section */}
       <div style={{ marginTop: "30px", width: "80%", textAlign: "center" }}>
-        <h3>Submit Your Review and Rating</h3>
+        <h3 style={{ color: 'white' }}>Submit Your Review and Rating</h3>
         <div>
           <label>
             Rating:
@@ -217,7 +218,7 @@ const ShowtimePage = () => {
 
       {/* Reviews List */}
       <div style={{ marginTop: "30px", width: "80%" }}>
-        <h3>Reviews</h3>
+        <h3 style={{ color: 'white' }}>Reviews</h3>
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
             <div key={index} style={{ marginBottom: "20px" }}>
@@ -226,7 +227,7 @@ const ShowtimePage = () => {
             </div>
           ))
         ) : (
-          <p>No reviews yet.</p>
+          <p style={{ color: 'white' }}>No reviews yet.</p>
         )}
       </div>
 
