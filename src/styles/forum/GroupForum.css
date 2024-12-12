@@ -164,3 +164,154 @@ img{
     color: white;
   }
   
+  @media (min-width: 481px) and (max-width: 740px) {
+    body {
+        font-size: 15px; 
+    }
+
+    .group-forum {
+        width: 85%; 
+        padding: 0 15px; 
+    }
+
+    .comment-list .user {
+        flex-direction: row; 
+        align-items: center; 
+    }
+
+    .comment-list .user img {
+        height: 30px;
+        width: 30px;
+        margin-right: 8px;
+    }
+
+    .comment-list {
+        font-size: 14px; 
+        padding: 10px;
+    }
+
+    .reply {
+        flex-direction: row; 
+        gap: 15px; 
+    }
+
+    .message-box textarea {
+        height: 120px; 
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .message-box .comment-submit {
+        padding: 8px 10px; 
+        font-size: 14px; 
+        margin: 10px auto; 
+        display: block; 
+    }
+
+    .group-name {
+        font-size: 1.5rem; 
+    }
+
+    .group-description {
+        font-size: 0.9rem;
+    }
+
+    .box-separator {
+        width: 90%; 
+        margin: 0 auto;
+    }
+
+    .icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .flex {
+        flex-wrap: wrap; 
+        justify-content: space-around; 
+    }
+}
+
+  @media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .group-forum {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .comment-list .user {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .comment-list .user img {
+        height: 24px;
+        width: 24px;
+        margin-bottom: 5px;
+    }
+
+    .comment-list {
+        padding: 8px;
+    }
+
+    .reply {
+        padding: 8px;
+    }
+
+    .message-box textarea {
+        height: 100px;
+        padding: 8px;
+    }
+
+    .message-box .comment-submit {
+        padding: 6px;
+    }
+
+    .group-name {
+        font-size: 1.2rem;
+    }
+
+    .group-description {
+        font-size: 0.8rem;
+    }
+
+    .icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .flex {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .group-forum {
+        width: 100%;
+    }
+
+    .comment-list {
+        font-size: 12px;
+    }
+
+    .message-box textarea {
+        height: 80px;
+    }
+
+    .message-box .comment-submit {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .group-name {
+        font-size: 1rem;
+    }
+
+    .group-description {
+        font-size: 0.7rem;
+    }
+}
