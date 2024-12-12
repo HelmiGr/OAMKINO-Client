@@ -8,6 +8,13 @@
 /*background-color: hsl(60, 2%, 21%);*/
 /*}*/
 
+.logo img {
+  width: 200px; /* Adjust to fit your design */
+  height: auto;
+  object-fit: contain;
+}
+
+
 .container {
   max-width: 1170px;
   margin: auto;

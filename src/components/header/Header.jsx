@@ -3,6 +3,7 @@ import "../../styles/header/Header.css";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import logo from './logo.png';
 // actual logo of the app needs to be added
 // need to add the functionality of putting a profile picture instead of "login" and "signup" once the user has logged in
 // links need to be working for the correct pages, will do this in a later push
@@ -26,7 +27,10 @@ export default function Header() {
   return (
     <header className="header">
       <div className="container">
-        <div className="logo">Logo</div>
+        <div className="logo">
+          <img src={logo} alt="App Logo" />
+        </div>
+
         <button
           type="button"
           className={`menu-btn ${isMenuOpen ? "active" : ""}`}
