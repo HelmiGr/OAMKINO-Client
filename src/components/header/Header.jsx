@@ -44,22 +44,22 @@ export default function Header() {
         </button>
         <nav className={`menu ${isMenuOpen ? "open" : ""}`}>
           <li>
-            <a href="/">Home</a>
+          <Link to="/" className="show-all-button"> HOME  </Link>
           </li>
           <li>
-            <a href="/search">Search</a>
+            <Link to="/search" className="show-all-button"> SEARCH  </Link>
           </li>
           <li>
-            <a href="/showtimes">Showtimes</a>
+            <Link to="/showtimes" className="show-all-button"> SHOWTIMES  </Link>
           </li>
           <li>
-            <a href="/favourites">Favourites</a>
+            <Link to="/favourites" className="show-all-button">  FAVOURITES  </Link>
           </li>
           <li>
-            <a href="/groups">Groups</a>
+            <Link to="/groups" className="show-all-button">  GROUPS  </Link>
           </li>
           <li>
-            <a href="/aboutus">About Us</a>
+            <Link to="/aboutus" className="show-all-button">  ABOUT US  </Link>
           </li>
           <li>{loading && <button className="nav-btn">Loading...</button>}</li>
 
