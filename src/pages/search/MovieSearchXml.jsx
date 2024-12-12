@@ -5,7 +5,7 @@ import FilterSidebar from "./FilterSidebar";
 import MovieCard from "./MovieCard";
 import apiClient from "../../api/api";
 import AddToGroupMovies from "../groups/custom_components/AddToGroupMovies"; // Import modal
-
+import FavouriteButton from "../../components/favourite/addFavourite";
 function MovieSearchXml() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -145,6 +145,8 @@ function MovieSearchXml() {
               <button onClick={() => setSelectedMovie(null)}>
                 Back to List
               </button>
+              <FavouriteButton movieId={selectedMovie.id} />
+
               <h2>
                 {selectedMovie.title} ({selectedMovie.productionYear})
               </h2>

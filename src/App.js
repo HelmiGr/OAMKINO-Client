@@ -22,6 +22,7 @@ import AboutUs from "./pages/aboutUs/AboutUs";
 import Creategroup from "./pages/groups/Creategroup";
 import GroupPage from "./pages/groups/groupsPage";
 import YourGroups from "./pages/groups/yourGroups";
+import FavouritePage from "./pages/favourite/favourites";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
               <Route path="/showtimes" element={<Showtimes />} />
               <Route path="/showtime/:id" element={<ShowtimePage />} />
               <Route path="/search" element={<MovieSearchXml />}></Route>
-
+              <Route path="/favourites" element={<FavouritePage />}></Route>
               <Route path="/forum/:id" element={<GroupForum />} />
               <Route path="/aboutus" element={<AboutUs />}></Route>
 

@@ -47,7 +47,7 @@ export default function Header() {
             <a href="/showtimes">Showtimes</a>
           </li>
           <li>
-            <a href="">Favourites</a>
+            <a href="/favourites">Favourites</a>
           </li>
           <li>
             <a href="/groups">Groups</a>
