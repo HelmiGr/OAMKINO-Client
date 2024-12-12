@@ -3,6 +3,8 @@
   font-family: Arial, sans-serif;
   padding: 20px;
   color: white;
+  max-width: 1170px;
+  margin: auto;
 }
 
 .groups-page-general h1 {
