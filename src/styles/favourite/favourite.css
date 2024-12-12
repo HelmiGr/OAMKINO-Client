@@ -1,4 +1,4 @@
-.main-title {
+/* .main-title {
   font-family: "Arial", sans-serif;
   font-size: 32px;
   font-weight: bold;
@@ -9,7 +9,7 @@
   text-transform: capitalize;
   letter-spacing: 1px;
   border-radius: 8px;
-}
+} */
 
 .favourite-page {
   padding: 20px;
@@ -18,10 +18,10 @@
 .favourite-list {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.movie-card {
+/* .movie-card {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -104,4 +104,4 @@
   font-size: 1.2rem;
   color: #ffffff;
   margin-top: 30px;
-}
+} */

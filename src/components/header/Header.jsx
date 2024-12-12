@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/header/Header.css";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from './logo.png';
 // actual logo of the app needs to be added
@@ -28,9 +28,11 @@ export default function Header() {
     <header className="header">
       <div className="container">
         <div className="logo">
-          <img src={logo} alt="App Logo" />
+          {/* Logo leads to home page */}
+          <Link to="/">
+            <img src={logo} alt="App Logo" className="logo-img" />
+          </Link>
         </div>
-
         <button
           type="button"
           className={`menu-btn ${isMenuOpen ? "active" : ""}`}
