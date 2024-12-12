@@ -59,6 +59,15 @@
   background-color: #e91e63;
 }
 
+.groups-page-general .btn.forum {
+  background-color: hsl(338, 61%, 45%);
+  color: white;
+}
+
+.groups-page-general .btn.forum:hover {
+  background-color: #e91e63;
+}
+
 /* Table Styling */
 /* .groups-page-general .groups-table {
   width: 100%;

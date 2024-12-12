@@ -40,6 +40,12 @@ const GroupsPageGeneral = () => {
           >
             Your Groups
           </button>
+          <button
+          className="btn forum"
+          onClick={() => navigate("/forum")}
+          >
+          Forum
+          </button>
         </div>
       </nav>
 
