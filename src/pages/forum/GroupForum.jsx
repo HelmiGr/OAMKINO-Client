@@ -6,65 +6,52 @@ import GroupPostingBox from "./GroupPostingBox";
 import { format } from "date-fns";
 import apiClient from "../../api/api";
 
-// route will be /forum/:groupId
-
 export default function GroupForum() {
-  // get groupId from the url
-  const { id } = useParams();
-
-  // so each user can only edit and delete their own posts
-  const currentUser = { id: 1 }; // need to get actual logged-in user's ID!
-
+  const { id } = useParams(); // Group ID from URL
+  const currentUser = { id: 1 }; // Replace with actual logged-in user's ID
   const [posts, setPosts] = useState([]);
 
-  // fetch posts from the server once the page loads
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // fetch posts for the specific group
         const response = await apiClient.get(`/forum/${id}`);
-
+        console.log("Posts response:", response.data); // Log the API response
         const mappedPosts = response.data.map((post) => ({
           id: post.message_id,
           userId: post.user_id,
           groupId: post.group_id,
-          userImage: "../../images/default-avatar-icon", // if we want to add a user image
-          userName: "User Name", // if we want a username
+          userImage: "../../images/default-avatar-icon",
+          userName: "User Name",
           date: format(new Date(post.timestamp), "dd.MM.yyyy 'at' HH:mm"),
           comment: post.message,
         }));
-
-        setPosts(mappedPosts); // add these posts to the posts state
+        setPosts(mappedPosts);
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error(
+          "Error fetching posts:",
+          error.response?.data || error.message
+        );
       }
     };
 
     fetchPosts();
-  }, [id]); // re-run fetch if groupId changes
+  }, [id]);
 
-  // takes the id of the post and deletes it
-  const handleDeletePost = async (id) => {
+  const handleDeletePost = async (postId) => {
     try {
-      // sends a delete req to the wanted URL (deletes post from db)
-      await apiClient.delete(`/forum/${id}`);
-      // deletes post from the app
-      setPosts(posts.filter((post) => post.id !== id));
+      await apiClient.delete(`/forum/${postId}`);
+      setPosts(posts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error("Error deleting post:", error);
     }
   };
 
-  // function to handle editing the post
-  const handleEditPost = async (id, updatedComment) => {
+  const handleEditPost = async (postId, updatedComment) => {
     try {
-      // send the updated comment to the server via PUT
-      await apiClient.put(`/forum/${id}`, { message: updatedComment });
-
-      // update the post in the local state
+      await apiClient.put(`/forum/${postId}`, { message: updatedComment });
       setPosts(
         posts.map((post) =>
-          post.id === id ? { ...post, comment: updatedComment } : post
+          post.id === postId ? { ...post, comment: updatedComment } : post
         )
       );
     } catch (error) {
@@ -72,58 +59,52 @@ export default function GroupForum() {
     }
   };
 
-  // Add This function for post and tagname post
   const handleNewPost = async (message) => {
     try {
-      const response = await apiClient.post(`/forum/${id}`, {
+      const response = await apiClient.post(`/forum`, {
         message,
         user_id: currentUser.id,
         group_id: id,
       });
-
       const newPost = {
         id: response.data.message_id,
         userId: currentUser.id,
         groupId: id,
         userImage: "../../images/default-avatar-icon",
         userName: "User Name",
-        date: format(new Date(), "dd.MM.yyyy 'at' HH:mm"),
+        date: format(
+          new Date(response.data.timestamp),
+          "dd.MM.yyyy 'at' HH:mm"
+        ),
         comment: message,
       };
-
-      setPosts([newPost, ...posts]); // Add new post to the top
+      setPosts([newPost, ...posts]);
     } catch (error) {
       console.error("Error adding post:", error);
     }
   };
-  <GroupPostingBox onSubmitPost={handleNewPost} />;
-  ////
 
   return (
     <div className="group-forum">
       <div className="group-info">
         <h1 className="group-name">Group Name</h1>
         <p className="group-description">
-          This is a brief description of the group. description text description
-          text!
+          This is a brief description of the group.
         </p>
       </div>
       <div className="box-separator"></div>
-      <form className="make-a-post-box">
-        <GroupPostingBox />
-      </form>
+      <GroupPostingBox onSubmitPost={handleNewPost} />
       <div className="box-separator"></div>
       <div className="forum-posts">
-        {posts.map((post, index) => (
+        {posts.map((post) => (
           <GroupPost
             key={post.id}
             postId={post.id}
-            userImage="./Kayla-Person" // change if we want to add a picture
+            userImage={post.userImage}
             userName={post.userName}
             date={post.date}
             comment={post.comment}
             userId={post.userId}
-            groupId={post.groupId}
             onDelete={() => handleDeletePost(post.id)}
             onEdit={handleEditPost}
             loggedInUserId={currentUser.id}

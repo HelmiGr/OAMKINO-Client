@@ -6,7 +6,7 @@ const TagInput = ({ onMessageChange }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const input = e.target.value;
     setMessage(input);
     onMessageChange(input); // Notify parent component of the updated message
@@ -15,13 +15,15 @@ const TagInput = ({ onMessageChange }) => {
     if (lastWord.startsWith("@")) {
       const searchTerm = lastWord.slice(1);
       if (searchTerm) {
-        apiClient
-          .get(`/forum/api/users?search=${searchTerm}`)
-          .then((response) => {
-            setSuggestions(response.data);
-            setShowSuggestions(true);
-          })
-          .catch((error) => console.error("Error fetching users:", error));
+        try {
+          const response = await apiClient.get(
+            `/forum/search?search=${searchTerm}`
+          );
+          setSuggestions(response.data);
+          setShowSuggestions(true);
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        }
       } else {
         setShowSuggestions(false);
       }
@@ -37,7 +39,7 @@ const TagInput = ({ onMessageChange }) => {
       `@${user_name} `
     );
     setMessage(newMessage);
-    onMessageChange(newMessage); // Notify parent of the updated message
+    onMessageChange(newMessage);
     setShowSuggestions(false);
   };
 

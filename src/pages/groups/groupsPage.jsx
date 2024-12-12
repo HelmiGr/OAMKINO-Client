@@ -38,7 +38,8 @@ const GroupPage = () => {
         const response = await apiClient.get(`/groups/all/${groupId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setGroup(response.data);
+        // setGroup(response.data);
+        setGroup({ ...response.data, id: groupId }); // Add groupId manually
 
         // Fetch membership details
         const membershipResponse = await apiClient.get(
