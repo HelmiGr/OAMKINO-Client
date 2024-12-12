@@ -5,16 +5,17 @@
     background-color: hsl(240, 4%, 11%);
     padding: 20px;
     border-radius: 8px;
-    width: 700px;
+    width: 800px;
+    margin: 0 auto;
   }
   
   /* Style for the heading */
   .post-reviews-container h2 {
     text-align: center;
     color: white;
-    width: 700px;
+    margin-bottom: 30px;
+    width: 600px;
   }
-  
   /* Style for the text area */
   .textarea-style {
     font-family: Arial, sans-serif;
@@ -25,7 +26,7 @@
     border: 1px solid hsl(240, 4%, 11%);
     border-radius: 4px;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: center; 
   }
   
   /* Style for the rating section */
@@ -70,14 +71,15 @@
   }
 
   textarea {
-    width: 150px;
-    height: 150px;
+    width: 800px;
+    height: 200px;
     padding: 10px;
     font-size: 1rem;
     font-family: Arial, sans-serif;
     border: 2px solid #ccc;
     border-radius: 4px;
     outline: none; 
+    resize: none; 
   }
   
   textarea::placeholder {
