@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // Shift this variable to an environment file in production
-export const BASE_API_URL = "https://oamkino-server.onrender.com/";
+export const BASE_API_URL =
+  "https://oamkino-backend-etczdxgkbth0gvfg.northeurope-01.azurewebsites.net/";
 
 export const apiClient = axios.create({
   baseURL: BASE_API_URL,
