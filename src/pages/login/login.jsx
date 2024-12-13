@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import "../../styles/signup/auth.css"; // Ensure you have the correct path to your app.css file
-import api from "../../api/api";
+import apiClient from "../../api/api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
 
     toast.promise(
-      api.post("/users/login", { email, password }).then((res) => {
+      apiClient.post("/users/login", { email, password }).then((res) => {
         const d = res.data;
         login(d.token, {
           id: d.userId,
