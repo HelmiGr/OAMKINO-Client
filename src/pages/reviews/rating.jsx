@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import apiClient from "../../api/api";
+import useAuth from "../../hooks/useAuth";
 
-const RatingComponent = ({ movieId, loggedInUser, rating, setRating }) => {
-  const [hoverRating, setHoverRating] = useState(0); // Track hover state
+const RatingComponent = ({ movieId, rating, setRating }) => {
+  const { user: loggedInUser } = useAuth(); // Get the logged-in user
+  const [hoverRating, setHoverRating] = useState(0);
 
   useEffect(() => {
-    // If a user is logged in and they already have a rating for this movie, load it
     if (loggedInUser && movieId) {
       const fetchUserRating = async () => {
         try {
@@ -15,7 +16,7 @@ const RatingComponent = ({ movieId, loggedInUser, rating, setRating }) => {
             params: { userId: loggedInUser.id },
           });
           if (response.data.rating) {
-            setRating(response.data.rating); // Set the user rating if it exists
+            setRating(response.data.rating);
           }
         } catch (error) {
           console.error("Error fetching user rating:", error);
@@ -26,10 +27,14 @@ const RatingComponent = ({ movieId, loggedInUser, rating, setRating }) => {
   }, [movieId, loggedInUser, setRating]);
 
   const handleStarClick = async (newRating) => {
-    setRating(newRating); // Update the rating in state
+    if (!loggedInUser) {
+      console.error("User is not logged in");
+      return;
+    }
+
+    setRating(newRating);
 
     try {
-      // Post the new rating to the backend when the user clicks a star
       await apiClient.post(`/movies/${movieId}/rating`, {
         rating: newRating,
         userId: loggedInUser.id,
@@ -40,34 +45,27 @@ const RatingComponent = ({ movieId, loggedInUser, rating, setRating }) => {
   };
 
   return (
-<div>
-  <h4>Rate this Movie</h4>
-  <div
-    style={{
-      display: "flex",
-      gap: "5px",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
-    {[1, 2, 3, 4, 5].map((star) => (
-      <div
-        key={star}
-        onClick={() => handleStarClick(star)}
-        onMouseEnter={() => setHoverRating(star)}
-        onMouseLeave={() => setHoverRating(0)}
-        style={{
-          fontSize: "2rem",
-          cursor: "pointer",
-          color: star <= (hoverRating || rating) ? "#DAA520" : "#ccc",
-          transition: "color 0.2s",
-        }}
-      >
-        <FontAwesomeIcon icon={solidStar} />
+    <div>
+      <h4>Rate this Movie</h4>
+      <div style={{ display: "flex", gap: "5px", justifyContent: "center", alignItems: "center" }}>
+        {[1, 2, 3, 4, 5].map((star) => (
+          <div
+            key={star}
+            onClick={() => handleStarClick(star)}
+            onMouseEnter={() => setHoverRating(star)}
+            onMouseLeave={() => setHoverRating(0)}
+            style={{
+              fontSize: "2rem",
+              cursor: "pointer",
+              color: star <= (hoverRating || rating) ? "#DAA520" : "#ccc",
+              transition: "color 0.2s",
+            }}
+          >
+            <FontAwesomeIcon icon={solidStar} />
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-</div>
+    </div>
   );
 };
 

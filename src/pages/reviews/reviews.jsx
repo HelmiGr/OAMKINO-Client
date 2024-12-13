@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
-import apiClient from "../../api/api"; // Assuming apiClient is in utils
+import React, { useEffect } from "react";
+import apiClient from "../../api/api";
 import "../../styles/reviews/review.css"
+import useAuth from "../../hooks/useAuth";
 
-const ReviewComponent = ({ movieId, loggedInUser, reviewText, setReviewText }) => {
+const ReviewComponent = ({ movieId, reviewText, setReviewText }) => {
+  const { user: loggedInUser } = useAuth(); // Access the logged-in user from AuthContext
+
   // Fetch user review if it already exists
   useEffect(() => {
     const fetchUserReview = async () => {
+      if (!loggedInUser) return; // Ensure the user is logged in
       try {
         const response = await apiClient.get(`/movies/${movieId}/user-review`, {
           params: { userId: loggedInUser.id },
@@ -18,9 +22,7 @@ const ReviewComponent = ({ movieId, loggedInUser, reviewText, setReviewText }) =
       }
     };
 
-    if (loggedInUser) {
-      fetchUserReview();
-    }
+    fetchUserReview();
   }, [movieId, loggedInUser, setReviewText]);
 
   return (
