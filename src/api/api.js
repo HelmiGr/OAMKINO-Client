@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Shift this variable to an environment file in production
-export const BASE_API_URL = "http://localhost:3001/";
+export const BASE_API_URL = "https://web-ad-ser-tryied.onrender.com/";
 
 export const apiClient = axios.create({
   baseURL: BASE_API_URL,
